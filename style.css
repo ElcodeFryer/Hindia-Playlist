@@ -1,4 +1,4 @@
-:root{--w:clamp(240px,52vh,400px);--gap:24px;--ink:#14161c;--mut:#8b90a0;--bg:#eef0f6;--ease:cubic-bezier(.4,.1,.2,1)}
+:root{--w:clamp(240px,52vh,400px);--gap:calc(var(--w) * .45);--ink:#14161c;--mut:#8b90a0;--bg:#eef0f6;--ease:cubic-bezier(.4,.1,.2,1)}
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:grid;place-items:center;padding:28px 18px;color:var(--ink);
   font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
@@ -24,15 +24,38 @@ body{margin:0;min-height:100vh;display:grid;place-items:center;padding:28px 18px
 
 /* ---- cover: sebelumnya | sekarang | berikutnya ---- */
 .strip{position:relative;height:calc(var(--w) + 60px);overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .track{position:absolute;left:50%;top:30px;display:flex;gap:var(--gap);
-  transform:translateX(calc(-1 * (var(--w) + var(--gap)) * var(--i, 0) - var(--w) / 2));
+  /* digeser dikit ke kiri biar sampul + piringan yang keluar terlihat di tengah */
+  transform:translateX(calc(-1 * (var(--w) + var(--gap)) * var(--i, 0) - var(--w) / 2 - var(--w) * .16));
   transition:transform .6s var(--ease)}
-.cv{flex:none;width:var(--w);height:var(--w);border:3px solid var(--ink);border-radius:18px;
-  background:#cfd3de center/cover no-repeat;cursor:pointer;transform:scale(.8);opacity:.45;
-  transition:transform .6s var(--ease),opacity .6s,box-shadow .6s}
-.cv.on{transform:scale(1);opacity:1;box-shadow:0 24px 44px -18px #14161c70}
+
+.cv{position:relative;flex:none;width:var(--w);height:var(--w);cursor:pointer;
+  transform:scale(.8);opacity:.45;transition:transform .6s var(--ease),opacity .6s}
+.cv.on{transform:scale(1);opacity:1}
+
+/* sampul (kotak) */
+.sleeve{position:absolute;inset:0;z-index:2;border-radius:14px;background:#cfd3de center/cover no-repeat;
+  box-shadow:0 24px 44px -18px #14161c90,0 2px 6px #14161c30}
+.sleeve::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,#ffffff30,transparent 40%)}
+
+/* piringan hitam di belakang sampul: geser keluar saat aktif */
+.vinyl{position:absolute;z-index:1;top:3%;left:0;width:94%;height:94%;
+  transition:transform .7s var(--ease)}
+.cv.on .vinyl{transform:translateX(40%)}
+.disc{position:absolute;inset:0;border-radius:50%;
+  background:repeating-radial-gradient(circle,#0b0c0f 0 2px,#1b1d22 3px 4px);
+  box-shadow:inset 0 0 0 5px #272a30,0 14px 30px -12px #14161c80;
+  animation:putar 3.6s linear infinite paused}
+.playing .cv.on .disc{animation-play-state:running}
+.disc::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 30deg,transparent 0 6%,#ffffff30 12%,transparent 20% 52%,#ffffff22 62%,transparent 70%)}
+.lb{position:absolute;inset:30%;border-radius:50%;background:#cfd3de center/cover no-repeat;box-shadow:0 0 0 5px #0a0b0d}
+.disc::after{content:"";position:absolute;left:50%;top:50%;width:5%;height:5%;transform:translate(-50%,-50%);
+  border-radius:50%;background:#e9ebf2;box-shadow:0 0 0 2px #0008}
+@keyframes putar{to{transform:rotate(360deg)}}
 
 /* ---- info ---- */
 .info{display:flex;flex-direction:column;min-height:0;height:calc(var(--w) + 60px);padding:30px 0}
@@ -60,4 +83,4 @@ input[type=range]{width:100%;accent-color:var(--ink);cursor:pointer}
 .row .no{width:18px;text-align:center;font-size:13px}
 .row .jd{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
 
-@media(prefers-reduced-motion:reduce){.track,.cv,.bg{transition:none}}
+@media(prefers-reduced-motion:reduce){.track,.cv,.bg,.vinyl{transition:none}.disc{animation:none}}

@@ -15,7 +15,6 @@ const LAGU = [
     { url: "https://soundcloud.com/user-225921661/evaluasi", title: "Evaluasi", cover: "house.jpeg" },
     { url: "https://soundcloud.com/xsya-kaaa/hindia-perseverance-in-the", title: "Perseverance (in the face of grief)", cover: "album.jpeg" },
     { url: "https://soundcloud.com/hindia-29894756/membasuh", title: "Membasuh", cover: "house.jpeg" }
-    
 ];
 
 let sekarang = 0;     // index lagu yang aktif
@@ -50,8 +49,12 @@ function latarBelakang() {
 
 /* ---------- bangun tampilan sekali ---------- */
 $("track").innerHTML = LAGU.map((l, i) =>
-    `<div class="cv" data-i="${i}" style="background-image:url('${l.cover}')"
-          role="button" tabindex="0" aria-label="Putar lagu ${i + 1}"></div>`).join("");
+    `<div class="cv" data-i="${i}" role="button" tabindex="0" aria-label="Putar lagu ${i + 1}">
+        <div class="vinyl">
+            <div class="disc"><i class="lb" style="background-image:url('${l.cover}')"></i></div>
+        </div>
+        <div class="sleeve" style="background-image:url('${l.cover}')"></div>
+    </div>`).join("");
 
 $("daftar").innerHTML = LAGU.map((l, i) =>
     `<li class="row" data-i="${i}" tabindex="0">
@@ -83,6 +86,7 @@ function tampil() {
 
     tombol.innerHTML = `<i class="bi bi-${memutar ? "pause" : "play"}-fill"></i>`;
     tombol.setAttribute("aria-label", memutar ? "Jeda" : "Putar");
+    $("player").classList.toggle("playing", memutar);
 }
 
 /* ---------- kontrol lagu ---------- */
