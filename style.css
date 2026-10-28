@@ -1,0 +1,60 @@
+:root{--w:clamp(240px,52vh,400px);--gap:24px;--ink:#14161c;--mut:#8b90a0;--bg:#eef0f6;--ease:cubic-bezier(.4,.1,.2,1)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:28px 18px;color:var(--ink);
+  font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;
+  background:radial-gradient(520px 360px at 22% 30%,#f3d9e6aa,transparent 70%),
+             radial-gradient(520px 360px at 40% 75%,#cfe3f7aa,transparent 70%),var(--bg)}
+.sc-tersembunyi{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+
+/* cover dan judul sama-sama di tengah layar */
+.app{width:min(1120px,100%);display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:48px;align-items:center;
+  padding:14px 36px;border-radius:28px;background:rgba(255,255,255,.66);border:1px solid #fff;
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 40px 80px -36px #14161c55,0 2px 8px #14161c10}
+
+/* layar lebar: satu layar penuh, tanpa scrollbar halaman */
+@media(min-width:901px){
+  html,body{height:100%;overflow:hidden}
+  body{height:100dvh;min-height:0}
+}
+@media(max-width:900px){:root{--w:min(240px,62vw)}.app{grid-template-columns:1fr;gap:20px;padding:18px 16px;border-radius:22px}}
+
+/* ---- cover: sebelumnya | sekarang | berikutnya ---- */
+.strip{position:relative;height:calc(var(--w) + 60px);overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{position:absolute;left:50%;top:30px;display:flex;gap:var(--gap);
+  transform:translateX(calc(-1 * (var(--w) + var(--gap)) * var(--i, 0) - var(--w) / 2));
+  transition:transform .6s var(--ease)}
+.cv{flex:none;width:var(--w);height:var(--w);border:3px solid var(--ink);border-radius:18px;
+  background:#cfd3de center/cover no-repeat;cursor:pointer;transform:scale(.8);opacity:.45;
+  transition:transform .6s var(--ease),opacity .6s,box-shadow .6s}
+.cv.on{transform:scale(1);opacity:1;box-shadow:0 24px 44px -18px #14161c70}
+
+/* ---- info ---- */
+.info{display:flex;flex-direction:column;min-height:0;height:calc(var(--w) + 60px);padding:30px 0}
+@media(max-width:900px){.info{height:auto;padding:0}}
+h1{font-size:clamp(24px,2.8vw,36px);font-weight:800;line-height:1.1;margin:-3px 0 4px;overflow-wrap:anywhere}
+.meta{color:var(--mut);margin:0 0 16px}
+.ctrl{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.ctl{width:46px;height:46px;border-radius:50%;border:1.5px solid #14161c33;background:#fff;color:var(--ink);
+  font-size:1.25rem;display:grid;place-items:center;cursor:pointer;padding:0;transition:border-color .2s,transform .2s}
+.ctl:hover{border-color:var(--ink);transform:translateY(-1px)}
+.ctl.main{width:60px;height:60px;background:var(--ink);color:#fff;border-color:var(--ink);font-size:1.7rem}
+.ctl:focus-visible,.row:focus-visible,.cv:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.prog{max-width:480px;margin-bottom:16px}
+input[type=range]{width:100%;accent-color:var(--ink);cursor:pointer}
+.waktu{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}
+
+/* ---- daftar lagu (rapat, scrollbar disembunyikan kalau layar pendek banget) ---- */
+.daftar{list-style:none;margin:0;padding:0;display:grid;gap:2px;max-width:480px;flex:1 1 auto;min-height:0;
+  overflow-y:auto;scrollbar-width:none}
+.daftar::-webkit-scrollbar{display:none}
+.row{display:flex;align-items:center;gap:14px;padding:8px 16px;border-radius:12px;cursor:pointer;color:#5b6070;font-size:15px;
+  transition:background .2s,color .2s}
+.row:hover{background:#14161c0d}
+.row.on{background:var(--ink);color:#fff}
+.row .no{width:18px;text-align:center;font-size:13px}
+.row .jd{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+
+@media(prefers-reduced-motion:reduce){.track,.cv{transition:none}}

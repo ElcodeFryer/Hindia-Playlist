@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Spotipi</title>
+</head>
+<body>
+
+<main class="app" id="player">
+
+    <!-- COVER: lagu sebelumnya | sekarang | berikutnya -->
+    <section class="strip" id="strip" aria-label="Cover lagu">
+        <div class="track" id="track"></div>
+    </section>
+
+    <!-- INFO + KONTROL + DAFTAR LAGU -->
+    <section class="info">
+        <h1 id="judul">Memuat lagu...</h1>
+        <p class="meta" id="meta"></p>
+
+        <div class="ctrl">
+            <button id="tombolPrev" class="ctl" aria-label="Lagu sebelumnya">
+                <i class="bi bi-skip-start-fill"></i>
+            </button>
+            <button id="tombolMusik" class="ctl main" aria-label="Putar">
+                <i class="bi bi-play-fill"></i>
+            </button>
+            <button id="tombolNext" class="ctl" aria-label="Lagu berikutnya">
+                <i class="bi bi-skip-end-fill"></i>
+            </button>
+        </div>
+
+        <div class="prog">
+            <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Posisi lagu">
+            <div class="waktu"><span id="waktu">0:00</span><span id="durasi">0:00</span></div>
+        </div>
+
+        <ol class="daftar" id="daftar"></ol>
+    </section>
+
+</main>
+
+<iframe
+    id="soundcloudPlayer"
+    class="sc-tersembunyi"
+    width="1"
+    height="1"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2049626188&auto_play=false">
+</iframe>
+
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>
