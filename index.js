@@ -6,15 +6,16 @@ const player = SC.Widget(playerElement);
 // Mau nambah atau ganti lagu: edit di sini, lalu upload ulang webnya.
 const LAGU = [
     { url: "https://api.soundcloud.com/tracks/soundcloud%3Atracks%3A2049626188", title: "Everything U Are", cover: "album.jpeg" },
-    { url: "https://soundcloud.com/godffangs/hindia-kids", title: "Kids", cover: "album.jpeg" },
-    { url: "https://soundcloud.com/xsya-kaaa/hindia-perseverance-in-the", title: "Perseverance (in the face of grief)", cover: "album.jpeg" },
-    { url: "https://soundcloud.com/maju-se-arah/harga-satu-pil-hindia", title: "Harga Satu Pil", cover: "album.jpeg" },
-    { url: "https://soundcloud.com/godffangs/hindia-kita-ke-sana", title: "Kita ke sana", cover: "images.jpeg" },
-    { url: "https://soundcloud.com/user-650439525/hindia-cincin", title: "Cincin", cover: "images.jpeg" },
     { url: "https://soundcloud.com/dandi-dwie-lisadi/hindia-rumah-ke-rumah", title: "Rumah ke Rumah", cover: "house.jpeg" },
+    { url: "https://soundcloud.com/godffangs/hindia-kids", title: "Kids", cover: "album.jpeg" },
+    { url: "https://soundcloud.com/godffangs/hindia-kita-ke-sana", title: "Kita ke sana", cover: "images.jpeg" },
+    { url: "https://soundcloud.com/muhammad-faza-938291781/hindia-secukupnyaa", title: "Secukupnya", cover: "house.jpeg" },
+    { url: "https://soundcloud.com/maju-se-arah/harga-satu-pil-hindia", title: "Harga Satu Pil", cover: "album.jpeg" },
+    { url: "https://soundcloud.com/user-650439525/hindia-cincin", title: "Cincin", cover: "images.jpeg" },
     { url: "https://soundcloud.com/user-225921661/evaluasi", title: "Evaluasi", cover: "house.jpeg" },
-    { url: "https://soundcloud.com/hindia-29894756/membasuh", title: "Membasuh", cover: "house.jpeg" },
-    { url: "https://soundcloud.com/muhammad-faza-938291781/hindia-secukupnyaa", title: "Secukupnya", cover: "house.jpeg" }
+    { url: "https://soundcloud.com/xsya-kaaa/hindia-perseverance-in-the", title: "Perseverance (in the face of grief)", cover: "album.jpeg" },
+    { url: "https://soundcloud.com/hindia-29894756/membasuh", title: "Membasuh", cover: "house.jpeg" }
+    
 ];
 
 let sekarang = 0;     // index lagu yang aktif
