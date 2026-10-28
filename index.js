@@ -14,7 +14,7 @@ const LAGU = [
     { url: "https://soundcloud.com/dandi-dwie-lisadi/hindia-rumah-ke-rumah", title: "Rumah ke Rumah", cover: "house.jpeg" },
     { url: "https://soundcloud.com/user-225921661/evaluasi", title: "Evaluasi", cover: "house.jpeg" },
     { url: "https://soundcloud.com/hindia-29894756/membasuh", title: "Membasuh", cover: "house.jpeg" },
-    { url: "https://soundcloud.com/muhammad-faza-938291781/hindia-secukupnya", title: "Secukupnya", cover: "house.jpeg" }
+    { url: "https://soundcloud.com/muhammad-faza-938291781/hindia-secukupnyaa", title: "Secukupnya", cover: "house.jpeg" }
 ];
 
 let sekarang = 0;     // index lagu yang aktif
@@ -25,6 +25,27 @@ let awal = true;
 let memutar = false;
 
 const $ = id => document.getElementById(id);
+
+/* ---------- siluet cover di belakang card ---------- */
+const bgs = [0, 1].map(() => {
+    const d = document.createElement("div");
+    d.className = "bg";
+    document.body.prepend(d);
+    return d;
+});
+let bgAktif = 0;
+let bgUrl = "";
+
+function latarBelakang() {
+    const url = LAGU[sekarang].cover;
+    if (url === bgUrl) return;
+    bgUrl = url;
+    const baru = bgs[1 - bgAktif];
+    baru.style.backgroundImage = `url('${url}')`;
+    baru.classList.add("on");
+    bgs[bgAktif].classList.remove("on");
+    bgAktif = 1 - bgAktif;
+}
 
 /* ---------- bangun tampilan sekali ---------- */
 $("track").innerHTML = LAGU.map((l, i) =>
@@ -44,6 +65,7 @@ function waktu(ms) {
 // perbarui semua yang berubah saat lagu ganti / play / pause
 function tampil() {
     $("track").style.setProperty("--i", sekarang);
+    latarBelakang();
     $("judul").textContent = LAGU[sekarang].title;
     $("meta").textContent = `Lagu ${sekarang + 1} dari ${LAGU.length}`;
 
